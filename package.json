@@ -1,7 +1,7 @@
 {
-  "name": "typescript-library-starter",
+  "name": "@47ng/cloak",
   "version": "0.0.1",
-  "description": "Template repository for TypeScript libraries",
+  "description": "Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js",
   "main": "dist/index.js",
   "license": "MIT",
   "author": {
@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/47ng/typescript-library-starter"
+    "url": "https://github.com/47ng/cloak"
   },
   "keywords": [
-    "boilerplate",
-    "template"
+    "cryptography",
+    "aes-256-gcm"
   ],
   "publishConfig": {
     "access": "public"
@@ -28,6 +28,12 @@
     "build:ts": "tsc",
     "build": "run-s build:clean build:ts",
     "ci": "run-s test build"
+  },
+  "dependencies": {
+    "@stablelib/base64": "^0.7.2",
+    "@stablelib/hex": "^0.5.0",
+    "@stablelib/utf8": "^0.10.1",
+    "node-webcrypto-ossl": "^1.0.48"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",

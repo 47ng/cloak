@@ -1,42 +1,32 @@
-# `typescript-library-starter`
+# `cloak`
 
-[![MIT License](https://img.shields.io/github/license/47ng/typescript-library-starter.svg?color=blue)](https://github.com/47ng/typescript-library-starter/blob/master/LICENSE)
-[![Travis CI Build](https://img.shields.io/travis/com/47ng/typescript-library-starter.svg)](https://travis-ci.com/47ng/typescript-library-starter)
-[![Average issue resolution time](https://isitmaintained.com/badge/resolution/47ng/typescript-library-starter.svg)](https://isitmaintained.com/project/47ng/typescript-library-starter)
-[![Number of open issues](https://isitmaintained.com/badge/open/47ng/typescript-library-starter.svg)](https://isitmaintained.com/project/47ng/typescript-library-starter)
+[![MIT License](https://img.shields.io/github/license/47ng/cloak.svg?color=blue)](https://github.com/47ng/cloak/blob/master/LICENSE)
+[![Travis CI Build](https://img.shields.io/travis/com/47ng/cloak.svg)](https://travis-ci.com/47ng/cloak)
+[![Average issue resolution time](https://isitmaintained.com/badge/resolution/47ng/cloak.svg)](https://isitmaintained.com/project/47ng/cloak)
+[![Number of open issues](https://isitmaintained.com/badge/open/47ng/cloak.svg)](https://isitmaintained.com/project/47ng/cloak)
 
-Template repository for TypeScript libraries.
+Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js.
 
 ## Installation
 
-✂️---
-_Cut here_
-
-1. [Use this repository as a template](https://github.com/47ng/typescript-library-starter/generate) to create your own.
-2. Replace all mentions of `typescript-library-starter` with the name
-   of your package.
-3. Setup Travis CI by adding an NPM deploy token and a Slack channel token:
-
-```zsh
-# Copy your NPM deploy token to clipboard, then:
-$ travis encrypt $(pbpaste) --add deploy.api_key --com
-
-# Copy your Slack channel token to clipboard, then:
-$ travis encrypt $(pbpaste) --add notifications.slack.rooms --com
-```
-
---- ✂️
-
 ```shell
-$ yarn add typescript-library-starter
+$ yarn add @47ng/cloak
 # or
-$ npm i typescript-library-starter
+$ npm i @47ng/cloak
 ```
 
-## Usage
+## Documentation
 
-## Configuration
+```ts
+import { generateKey, encryptString, decryptString } from '@47ng/cloak'
+
+const demo = async () => {
+  const key = await generateKey()
+  const cipher = await encryptString('Hello, World', key)
+  const decipher = await decryptString(cipher, key)
+}
+```
 
 ## License
 
-[MIT](https://github.com/47ng/typescript-library-starter/blob/master/LICENSE) - Made with ❤️ by [François Best](https://francoisbest.com).
+[MIT](https://github.com/47ng/cloak/blob/master/LICENSE) - Made with ❤️ by [François Best](https://francoisbest.com).

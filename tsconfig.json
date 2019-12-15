@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "target": "es2018",
     "module": "commonjs",
-    "lib": [],
+    "lib": ["DOM"],
     "declaration": true,
     "outDir": "./dist",
     "rootDir": "./src",
@@ -19,7 +19,7 @@
     "alwaysStrict": true,
 
     // Additional Checks
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
