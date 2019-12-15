@@ -3,6 +3,9 @@
   "version": "0.2.0",
   "description": "Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js",
   "main": "dist/index.js",
+  "bin": {
+    "cloak": "./dist/cli.js"
+  },
   "license": "MIT",
   "author": {
     "name": "François Best",
@@ -33,6 +36,7 @@
     "@stablelib/base64": "^0.7.2",
     "@stablelib/hex": "^0.5.0",
     "@stablelib/utf8": "^0.10.1",
+    "commander": "^4.0.1",
     "node-webcrypto-ossl": "^1.0.48"
   },
   "devDependencies": {
