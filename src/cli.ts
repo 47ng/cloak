@@ -65,7 +65,10 @@ program
       return
     }
     const keychain = await getEnvKeychain()
-    keychain[await getKeyFingerprint(key)] = key
+    keychain[await getKeyFingerprint(key)] = {
+      key,
+      createdAt: Date.now()
+    }
     await printExports('Updated keychain', keychain, env.masterKey)
   })
 
@@ -80,7 +83,7 @@ program
       const fingerprint = key
       const keychain = await getEnvKeychain()
       if (fingerprint in keychain) {
-        key = keychain[fingerprint]
+        key = keychain[fingerprint].key
       }
     }
     const ciphertext = await encryptString(stdin, key)
@@ -135,9 +138,15 @@ program
   .option('-f, --full', 'Show the full keys in clear text')
   .action(async (_, { full = false } = {}) => {
     const keychain = await getEnvKeychain()
-    console.log(
-      JSON.stringify(full ? keychain : Object.keys(keychain), null, 2)
-    )
+    const table = Object.keys(keychain).map(fingerprint => {
+      const { key, createdAt } = keychain[fingerprint]
+      return {
+        createdAt: new Date(createdAt).toISOString(),
+        fingerprint,
+        key: full ? key : '[redacted]'
+      }
+    })
+    console.table(table)
   })
 
 program.parse(process.argv)

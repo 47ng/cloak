@@ -6,8 +6,13 @@ import {
   getMessageKeyFingerprint
 } from './message'
 
+interface KeychainEntry {
+  key: CloakKey
+  createdAt: number // timestamp
+}
+
 export type CloakKeychain = {
-  [fingerprint: string]: CloakKey
+  [fingerprint: string]: KeychainEntry
 }
 
 export const makeKeychain = async (
@@ -15,7 +20,10 @@ export const makeKeychain = async (
 ): Promise<CloakKeychain> => {
   const keychain: CloakKeychain = {}
   for (const key of keys) {
-    keychain[await getKeyFingerprint(key)] = key
+    keychain[await getKeyFingerprint(key)] = {
+      key,
+      createdAt: Date.now()
+    }
   }
   return keychain
 }
@@ -30,11 +38,14 @@ export const importKeychain = async (
   encryptedKeychain: CloakedString,
   masterKey: CloakKey
 ): Promise<CloakKeychain> => {
-  const keyList = await decryptString(encryptedKeychain, masterKey)
-  const keys = keyList.split(',')
+  const json = await decryptString(encryptedKeychain, masterKey)
+  const keys: KeychainEntry[] = JSON.parse(json)
   const keychain: CloakKeychain = {}
-  for (const key of keys) {
-    keychain[await getKeyFingerprint(key)] = key
+  for (const { key, ...rest } of keys) {
+    keychain[await getKeyFingerprint(key)] = {
+      key,
+      ...rest
+    }
   }
   return keychain
 }
@@ -50,8 +61,8 @@ export const exportKeychain = async (
   keychain: CloakKeychain,
   masterKey: CloakKey
 ): Promise<CloakedString> => {
-  const keyList = Object.values(keychain).join(',')
-  return encryptString(keyList, masterKey)
+  const entries = Object.values(keychain)
+  return await encryptString(JSON.stringify(entries), masterKey)
 }
 
 export const findKeyForMessage = async (
@@ -62,5 +73,5 @@ export const findKeyForMessage = async (
   if (!(fingerprint in keychain)) {
     throw new Error('Key is not available')
   }
-  return keychain[fingerprint]
+  return keychain[fingerprint].key
 }
