@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import dotenv from 'dotenv'
 import fs from 'fs'
 import program from 'commander'
 import { generateKey, getKeyFingerprint } from './key'
@@ -11,6 +12,8 @@ import {
   CloakKeychain
 } from './keychain'
 import { encryptString, decryptString } from './message'
+
+dotenv.config()
 
 const env = {
   keychain: process.env.CLOAK_KEYCHAIN,

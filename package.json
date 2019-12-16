@@ -37,6 +37,7 @@
     "@stablelib/hex": "^0.5.0",
     "@stablelib/utf8": "^0.10.1",
     "commander": "^4.0.1",
+    "dotenv": "^8.2.0",
     "node-webcrypto-ossl": "^1.0.48"
   },
   "devDependencies": {
