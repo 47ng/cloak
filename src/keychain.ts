@@ -59,7 +59,7 @@ export const findKeyForMessage = async (
   keychain: CloakKeychain
 ): Promise<CloakKey> => {
   const fingerprint = getMessageKeyFingerprint(message)
-  if (!Object.keys(keychain).includes(fingerprint)) {
+  if (!(fingerprint in keychain)) {
     throw new Error('Key is not available')
   }
   return keychain[fingerprint]
