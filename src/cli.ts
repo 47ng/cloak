@@ -47,7 +47,9 @@ program
   .description('Generate an AES-GCM key')
   .action(async () => {
     const key = await generateKey()
-    console.log(key)
+    const fingerprint = await getKeyFingerprint(key)
+    console.log('Key:         ', key)
+    console.log('Fingerprint: ', fingerprint)
 
     // todo: print different things based on context:
     // - no master key or keychain:
