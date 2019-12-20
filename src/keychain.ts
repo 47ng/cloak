@@ -75,3 +75,14 @@ export const findKeyForMessage = (
   }
   return keychain[fingerprint].key
 }
+
+export const getKeyAge = async (
+  fingerprint: string,
+  keychain: CloakKeychain,
+  now: number = Date.now()
+) => {
+  if (!(fingerprint in keychain)) {
+    throw new Error('Key is not available')
+  }
+  return now - keychain[fingerprint].createdAt
+}
