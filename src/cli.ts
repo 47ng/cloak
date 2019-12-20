@@ -65,11 +65,14 @@ program
       return
     }
     const keychain = await getEnvKeychain()
-    keychain[await getKeyFingerprint(key)] = {
+    keychain[fingerprint] = {
       key,
       createdAt: Date.now()
     }
     await printExports('Updated keychain', keychain, env.masterKey)
+    console.log(`
+To use this new key as default for encryption:
+export CLOAK_CURRENT_KEY="${fingerprint}"`)
   })
 
 // --
@@ -90,7 +93,7 @@ program
         console.error('Missing key (not available in keychain)')
         process.exit(1)
       }
-      }
+    }
     if (!key) {
       console.error('Missing key')
       process.exit(1)
@@ -127,19 +130,22 @@ program
 
 // --
 
-program.command('revoke <keyFingerprint>').action(async keyFingerprint => {
-  const keychain = await getEnvKeychain()
-  if (!(keyFingerprint in keychain)) {
-    console.error('No such key in env keychain')
-    process.exit(1)
-  }
-  if (!env.masterKey) {
-    console.error('Master key is missing')
-    process.exit(1)
-  }
-  const { [keyFingerprint]: _, ...newKeychain } = keychain
-  await printExports('Updated keychain', newKeychain, env.masterKey)
-})
+program
+  .command('revoke <keyFingerprint>')
+  .description('Remove a key from the environment keychain')
+  .action(async keyFingerprint => {
+    const keychain = await getEnvKeychain()
+    if (!(keyFingerprint in keychain)) {
+      console.error('No such key in env keychain')
+      process.exit(1)
+    }
+    if (!env.masterKey) {
+      console.error('Master key is missing')
+      process.exit(1)
+    }
+    const { [keyFingerprint]: _, ...newKeychain } = keychain
+    await printExports('Updated keychain', newKeychain, env.masterKey)
+  })
 
 // --
 
