@@ -75,17 +75,27 @@ program
 // --
 
 program
-  .command('encrypt <key>')
-  .description('Encrypt stdin with the given key or fingerprint')
-  .action(async (key: string) => {
-    const stdin = fs.readFileSync(0, 'utf-8')
-    if (key.length === 16) {
+  .command('encrypt [key]')
+  .description('Encrypt stdin')
+  .action(async key => {
+    if (!key) {
+      key = process.env.CLOAK_CURRENT_KEY
+    }
+    if (key && key.length === 16) {
       const fingerprint = key
       const keychain = await getEnvKeychain()
       if (fingerprint in keychain) {
         key = keychain[fingerprint].key
+      } else {
+        console.error('Missing key (not available in keychain)')
+        process.exit(1)
       }
+      }
+    if (!key) {
+      console.error('Missing key')
+      process.exit(1)
     }
+    const stdin = fs.readFileSync(0, 'utf-8')
     const ciphertext = await encryptString(stdin, key)
     console.log(ciphertext)
   })
@@ -96,19 +106,20 @@ program
   .command('decrypt')
   .description('Decrypt stdin')
   .action(async () => {
+    const keychain = await getEnvKeychain()
+    if (!keychain) {
+      // todo: Provide option to pass a cleartext key for decryption
+      console.error('No keychain found and no key provided')
+      process.exit(1)
+    }
+    // First: try from the keychain
+    // Then: try with the given key
     const stdin = fs
       .readFileSync(0, 'utf-8')
       .split('\n')
       .filter(line => line.length > 0)
-    const keychain = await getEnvKeychain()
-    if (!keychain) {
-      console.error('No keychain found and no key provided')
-      process.exit(1)
-    }
-    // First: try form the keychain
-    // Then: try with the given key
     for (const message of stdin) {
-      const key = await findKeyForMessage(message, keychain)
+      const key = findKeyForMessage(message, keychain)
       const cleartext = await decryptString(message, key)
       console.log(cleartext)
     }
