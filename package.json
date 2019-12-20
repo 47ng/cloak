@@ -27,7 +27,8 @@
     "test": "jest --verbose",
     "test:watch": "jest --verbose --watch",
     "dev": "nodemon -e ts,.env -w .env -w . -x 'run-s build:ts test'",
-    "build:clean": "rm -rf ./dist",
+    "link:cli": "chmod +x ./dist/cli.js && ln -s $(pwd)/dist/cli.js ./node_modules/.bin/cloak",
+    "build:clean": "rm -rf ./dist && rm -f ./node_modules/.bin/cloak",
     "build:ts": "tsc",
     "build": "run-s build:clean build:ts",
     "ci": "run-s test build"
