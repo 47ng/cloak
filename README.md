@@ -15,6 +15,65 @@ $ yarn add @47ng/cloak
 $ npm i @47ng/cloak
 ```
 
+## CLI
+
+The package comes with a CLI tool you can use to generate and manage keys, as
+well as encrypting and decrypting data in the terminal:
+
+```shell
+$ cloak --help
+
+Usage: cloak [options] [command]
+
+Options:
+  -h, --help                 output usage information
+
+Commands:
+  generate                   Generate an AES-GCM key
+  encrypt [key]              Encrypt stdin
+  decrypt                    Decrypt stdin
+  revoke <keyFingerprint>    Remove a key from the keychain
+  keychain [options] [full]  List the contents of the environment keychain
+
+# Start by generating an empty keychain and master key:
+$ cloak generate
+
+Key:          k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE=
+Fingerprint:  6f28c0260b724707
+findKeyForMessage
+Generated new empty keychain:
+export CLOAK_MASTER_KEY="k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE="
+export CLOAK_KEYCHAIN="v1.aesgcm256.6f28c0260b724707.yhCUkzv5gOyHJ2M_.jrGSf2_MPVofk-kSDgnYzvEy"
+
+# Copy/paste the exports into your terminal
+# (the CLI does not mutate your environment directly)
+$ export CLOAK_MASTER_KEY="k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE="
+$ export CLOAK_KEYCHAIN="v1.aesgcm256.6f28c0260b724707.yhCUkzv5gOyHJ2M_.jrGSf2_MPVofk-kSDgnYzvEy"
+
+# Generate a key to use for encryption
+$ cloak generate
+
+Key:          k1.aesgcm256.pHLFYdaqXut62LoFbt8KV80x_YNyZPmY0kQaPhJ0Ehc=
+Fingerprint:  cd38bcc458207592
+
+Updated keychain:
+export CLOAK_MASTER_KEY="k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE="
+export CLOAK_KEYCHAIN="v1.aesgcm256.6f28c0260b724707.jr9fqMA_RfNhIjHz.lo4IfIYfZ0zxrdSns_ibWq6YX1D5AnzN-fhUF0CKVx5dRVIo0x-Atumr9WZqpHOeEIWT5bEGFKHhxGkFdwk2vg5TZQNk5Rj_jo3hnfSLaFAYncG59dBjUkz1JE0Plq2d-GR1AbDs6P18VzOG_JrU"
+
+To use this new key as default for encryption:
+export CLOAK_CURRENT_KEY="cd38bcc458207592"
+
+# Encrypt sdtin
+$ echo 'Hello, World !' | cloak encrypt
+
+v1.aesgcm256.cd38bcc458207592.yxAp2iONy7zYOhbs.X2zmGpmGw9a7tiSnyukEW8Ac-2IIcIENW5uHxtHYyA==
+
+# Decrypt stdin
+$ echo 'v1.aesgcm256.cd38bcc458207592.yxAp2iONy7zYOhbs.X2zmGpmGw9a7tiSnyukEW8Ac-2IIcIENW5uHxtHYyA==' | cloak decrypt
+
+Hello, World !
+```
+
 ## Documentation
 
 ```ts
