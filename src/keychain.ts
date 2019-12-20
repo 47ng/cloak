@@ -65,10 +65,10 @@ export const exportKeychain = async (
   return await encryptString(JSON.stringify(entries), masterKey)
 }
 
-export const findKeyForMessage = async (
+export const findKeyForMessage = (
   message: CloakedString,
   keychain: CloakKeychain
-): Promise<CloakKey> => {
+): CloakKey => {
   const fingerprint = getMessageKeyFingerprint(message)
   if (!(fingerprint in keychain)) {
     throw new Error('Key is not available')
