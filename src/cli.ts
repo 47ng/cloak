@@ -3,7 +3,7 @@
 import dotenv from 'dotenv'
 import fs from 'fs'
 import program from 'commander'
-import { generateKey, getKeyFingerprint } from './key'
+import { generateKey, getKeyFingerprint, FINGERPRINT_LENGTH } from './key'
 import {
   exportKeychain,
   importKeychain,
@@ -85,7 +85,7 @@ program
     if (!key) {
       key = process.env.CLOAK_CURRENT_KEY
     }
-    if (key && key.length === 16) {
+    if (key && key.length === FINGERPRINT_LENGTH) {
       const fingerprint = key
       const keychain = await getEnvKeychain()
       if (fingerprint in keychain) {

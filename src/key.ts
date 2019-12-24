@@ -1,6 +1,8 @@
 import webcrypto from './utility/webcrypto'
 import { utf8, b64, hex } from './utility/codec'
 
+export const FINGERPRINT_LENGTH = 8
+
 /**
  * Serialized representation of a Cloak key.
  *
@@ -86,5 +88,5 @@ export const importKey = async (
 export const getKeyFingerprint = async (key: CloakKey): Promise<string> => {
   const data = utf8.encode(key)
   const hash = await webcrypto.subtle.digest('SHA-256', data)
-  return hex.encode(new Uint8Array(hash)).slice(0, 16)
+  return hex.encode(new Uint8Array(hash)).slice(0, FINGERPRINT_LENGTH)
 }
