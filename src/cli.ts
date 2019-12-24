@@ -80,7 +80,8 @@ export CLOAK_CURRENT_KEY="${fingerprint}"`)
 program
   .command('encrypt [key]')
   .description('Encrypt stdin')
-  .action(async key => {
+  .option('-l, --line', 'Encrypt line-by-line')
+  .action(async (key, { line }) => {
     if (!key) {
       key = process.env.CLOAK_CURRENT_KEY
     }
@@ -99,8 +100,15 @@ program
       process.exit(1)
     }
     const stdin = fs.readFileSync(0, 'utf-8')
-    const ciphertext = await encryptString(stdin, key)
-    console.log(ciphertext)
+    if (!line) {
+      const ciphertext = await encryptString(stdin, key)
+      console.log(ciphertext)
+      return
+    }
+    for (const line of stdin.split('\n')) {
+      const ciphertext = await encryptString(line, key)
+      console.log(ciphertext)
+    }
   })
 
 // --
