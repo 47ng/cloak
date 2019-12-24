@@ -3,6 +3,7 @@
 import dotenv from 'dotenv'
 import fs from 'fs'
 import program from 'commander'
+import ago from 's-ago'
 import { generateKey, getKeyFingerprint, FINGERPRINT_LENGTH } from './key'
 import {
   exportKeychain,
@@ -165,11 +166,18 @@ program
     const keychain = await getEnvKeychain()
     const table = Object.keys(keychain).map(fingerprint => {
       const { key, createdAt } = keychain[fingerprint]
-      return {
-        createdAt: new Date(createdAt).toISOString(),
-        fingerprint,
-        key: full ? key : '[redacted]'
-      }
+      const creationDate = new Date(createdAt)
+      return full
+        ? {
+            fingerprint,
+            createdAt: creationDate.toISOString(),
+            key
+          }
+        : {
+            fingerprint,
+            created: ago(creationDate),
+            key: '[redacted]'
+          }
     })
     console.table(table)
   })
