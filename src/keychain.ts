@@ -76,7 +76,7 @@ export const findKeyForMessage = (
   return keychain[fingerprint].key
 }
 
-export const getKeyAge = async (
+export const getKeyAge = (
   fingerprint: string,
   keychain: CloakKeychain,
   now: number = Date.now()
