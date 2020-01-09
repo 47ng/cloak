@@ -14,6 +14,32 @@ describe('v1 format', () => {
     expect(received).toEqual(expected)
   })
 
+  test('Encrypt empty string', async () => {
+    const key = 'k1.aesgcm256.2itF7YmMYIP4b9NNtKMhIx2axGi6aI50RcwGBiFq-VA='
+    const expected = ''
+    const cipher = await encryptString(expected, key)
+    const received = await decryptString(cipher, key)
+    expect(received).toEqual(expected)
+  })
+
+  test('Decrypt known message', async () => {
+    const key = 'k1.aesgcm256.2itF7YmMYIP4b9NNtKMhIx2axGi6aI50RcwGBiFq-VA='
+    const cipher =
+      'v1.aesgcm256.710bb0e2.F5wkSytfdVv4xvtN.8uNajc7ufhVmMFpDdzWgKMKhOY4ZR2OSv1DFjvnm'
+    const expected = 'Hello, World !'
+    const received = await decryptString(cipher, key)
+    expect(received).toEqual(expected)
+  })
+
+  test('Decrypt known message from browser', async () => {
+    const key = 'k1.aesgcm256.CO6hoJ8l1nAmXpuCcuNg-l5g3Nn63X36lBwhsNepUEY='
+    const cipher =
+      'v1.aesgcm256.4eb11c57.UAuPXcQZV_e40NP6.OvVOoWCXhMB_G-giNtAbDYZI0sfJomHUAW0vpxKV'
+    const expected = 'Hello, World !'
+    const received = await decryptString(cipher, key)
+    expect(received).toEqual(expected)
+  })
+
   test('Ciphertext & IV are rotated', async () => {
     const key = 'k1.aesgcm256.2itF7YmMYIP4b9NNtKMhIx2axGi6aI50RcwGBiFq-VA='
     const cipher1 = await encryptString('Hello, World !', key)

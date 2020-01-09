@@ -47,7 +47,7 @@ program
   .command('generate')
   .description('Generate an AES-GCM key')
   .action(async () => {
-    const key = await generateKey()
+    const key = generateKey()
     const fingerprint = await getKeyFingerprint(key)
     console.log('Key:         ', key)
     console.log('Fingerprint: ', fingerprint)

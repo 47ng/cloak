@@ -80,7 +80,7 @@ Hello, World !
 import { generateKey, encryptString, decryptString } from '@47ng/cloak'
 
 const demo = async () => {
-  const key = await generateKey()
+  const key = generateKey()
   const cipher = await encryptString('Hello, World', key)
   const decipher = await decryptString(cipher, key)
 }

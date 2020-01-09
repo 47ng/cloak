@@ -4704,16 +4704,6 @@ node-releases@^1.1.44:
   dependencies:
     semver "^6.3.0"
 
-node-webcrypto-ossl@^1.0.48:
-  version "1.0.48"
-  resolved "https://registry.yarnpkg.com/node-webcrypto-ossl/-/node-webcrypto-ossl-1.0.48.tgz#640e9547f8ae1d0becc8374a65e1d0e11ab385ea"
-  integrity sha512-MWUkQ/5wrs7lpAr+fhsLMfjdxKGd3dQFVqWbNMkyYyCMRW8E7ScailqtCZYDLTnJtU6B+91rXxCJNyZvbYaSOg==
-  dependencies:
-    mkdirp "^0.5.1"
-    nan "^2.13.2"
-    tslib "^1.9.3"
-    webcrypto-core "^0.1.26"
-
 nodemon@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-2.0.2.tgz#9c7efeaaf9b8259295a97e5d4585ba8f0cbe50b0"

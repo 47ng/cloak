@@ -4,10 +4,10 @@ import { importKey, getKeyFingerprint, CloakKey } from './key'
 
 export type CloakedString = string
 
-export const encryptString = async (
+export async function encryptString(
   input: string,
   key: CloakKey
-): Promise<CloakedString> => {
+): Promise<CloakedString> {
   const aesKey = await importKey(key, 'encrypt')
   const fingerprint = await getKeyFingerprint(key)
   const { text: ciphertext, iv } = await encryptAesGcm(aesKey, input)
@@ -20,10 +20,10 @@ export const encryptString = async (
   ].join('.')
 }
 
-export const decryptString = async (
+export async function decryptString(
   input: CloakedString,
   key: CloakKey
-): Promise<string> => {
+): Promise<string> {
   if (!input.startsWith('v1.')) {
     throw new Error('Unknown format')
   }
@@ -38,7 +38,7 @@ export const decryptString = async (
   })
 }
 
-export const getMessageKeyFingerprint = (message: CloakedString) => {
+export function getMessageKeyFingerprint(message: CloakedString) {
   if (!message.startsWith('v1.')) {
     throw new Error('Unknown format')
   }
