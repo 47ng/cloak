@@ -26,6 +26,7 @@
   "scripts": {
     "test": "jest --verbose",
     "test:watch": "jest --verbose --watch",
+    "test:browser": "parcel ./test/index.html",
     "dev": "nodemon -e ts,.env -w .env -w . -x 'run-s build:ts test'",
     "link:cli": "chmod +x ./dist/cli.js && ln -s $(pwd)/dist/cli.js ./node_modules/.bin/cloak",
     "build:clean": "rm -rf ./dist && rm -f ./node_modules/.bin/cloak",
@@ -49,13 +50,17 @@
     "jest": "^24.9.0",
     "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.4",
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.3"
   },
   "jest": {
     "preset": "ts-jest/presets/js-with-ts",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src"
+    ]
   },
   "husky": {
     "pre-push": "run-s test build"

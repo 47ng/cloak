@@ -2,6 +2,7 @@ node_modules/
 dist/
 .env
 yarn-error.log
+.cache
 
 # Docker containers with persistance
 .volumes/
