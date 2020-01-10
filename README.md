@@ -22,7 +22,6 @@ well as encrypting and decrypting data in the terminal:
 
 ```shell
 $ cloak --help
-
 Usage: cloak [options] [command]
 
 Options:
@@ -30,9 +29,9 @@ Options:
 
 Commands:
   generate                   Generate an AES-GCM key
-  encrypt [key]              Encrypt stdin
+  encrypt [options] [key]    Encrypt stdin
   decrypt                    Decrypt stdin
-  revoke <keyFingerprint>    Remove a key from the keychain
+  revoke <keyFingerprint>    Remove a key from the environment keychain
   keychain [options] [full]  List the contents of the environment keychain
 
 # Start by generating an empty keychain and master key:
@@ -56,7 +55,7 @@ Fingerprint:  cd38bcc4
 
 Updated keychain:
 export CLOAK_MASTER_KEY="k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE="
-export   CLOAK_KEYCHAIN="v1.aesgcm256.6f28c026.jr9fqMA_RfNhIjHz.lo4IfIYfZ0zxrdSns_ibWq6YX1D5AnzN-fhUF0CKVx5dRVIo0x-Atumr9WZqpHOeEIWT5bEGFKHhxGkFdwk2vg5TZQNk5Rj_jo3hnfSLaFAYncG59dB  jUkz1JE0Plq2d-GR1AbDs6P18VzOG_JrU"
+export CLOAK_KEYCHAIN="v1.aesgcm256.6f28c026.jr9fqMA_RfNhIjHz.lo4IfIYfZ0zxrdSns_ibWq6YX1D5AnzN-fhUF0CKVx5dRVIo0x-Atumr9WZqpHOeEIWT5bEGFKHhxGkFdwk2vg5TZQNk5Rj_jo3hnfSLaFAYncG59dB  jUkz1JE0Plq2d-GR1AbDs6P18VzOG_JrU"
 
 To use this new key as default for encryption:
 export CLOAK_CURRENT_KEY="cd38bcc4"
