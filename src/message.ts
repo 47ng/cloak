@@ -1,4 +1,4 @@
-import { b64 } from './utility/codec'
+import { b64 } from '@47ng/codec'
 import { encryptAesGcm, decryptAesGcm } from './ciphers/aes-gcm'
 import { importKey, getKeyFingerprint, CloakKey, ParsedCloakKey } from './key'
 

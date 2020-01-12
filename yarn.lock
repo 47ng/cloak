@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@47ng/codec@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@47ng/codec/-/codec-0.1.0.tgz#9b8b0310f7390a15835c745e6a66cc542913d8ca"
+  integrity sha512-qunhWiSH+uQQFpvi3MavKInIoaOoBt1PSm+vIRVLx/IV+tht+y+wqCZ7SOLtSq/eK8Ic+VqWexgXKcvyoNklSg==
+  dependencies:
+    "@stablelib/base64" "^0.7.2"
+    "@stablelib/hex" "^0.5.0"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.5.5.tgz#bc0782f6d69f7b7d49531219699b988f669a8f9d"

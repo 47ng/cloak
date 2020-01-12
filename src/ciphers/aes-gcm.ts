@@ -1,4 +1,4 @@
-import { utf8 } from '../utility/codec'
+import { utf8 } from '@47ng/codec'
 import * as NodeCrypto from 'crypto'
 
 let nodeCrypto: typeof NodeCrypto
