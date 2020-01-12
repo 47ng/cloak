@@ -21,8 +21,20 @@ export const FINGERPRINT_LENGTH = 8
  */
 export type CloakKey = string
 
+export interface ParsedCloakKey {
+  raw: Uint8Array | CryptoKey
+  fingerprint: string
+}
+
 export function formatKey(raw: Uint8Array) {
   return ['k1', 'aesgcm256', b64.encode(raw)].join('.')
+}
+
+export async function parseKey(key: CloakKey): Promise<ParsedCloakKey> {
+  return {
+    raw: await importKey(key),
+    fingerprint: await getKeyFingerprint(key)
+  }
 }
 
 /**
@@ -68,7 +80,7 @@ export async function exportKey(key: CryptoKey): Promise<CloakKey> {
  */
 export async function importKey(
   key: CloakKey,
-  usage: 'encrypt' | 'decrypt'
+  usage?: 'encrypt' | 'decrypt'
 ): Promise<CryptoKey | Uint8Array> {
   if (!key.startsWith('k1.')) {
     throw new Error('Unknown key format')
@@ -91,7 +103,7 @@ export async function importKey(
         length: 256
       },
       false, // Cannot re-export
-      [usage]
+      usage ? [usage] : ['encrypt', 'decrypt']
     )
   }
 }

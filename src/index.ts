@@ -1,3 +1,9 @@
-export { generateKey, exportKey, CloakKey } from './key'
+export {
+  generateKey,
+  exportKey,
+  parseKey,
+  CloakKey,
+  ParsedCloakKey
+} from './key'
 export * from './keychain'
 export * from './message'
