@@ -5,7 +5,13 @@ import fs from 'fs'
 import program from 'commander'
 import ago from 's-ago'
 import chalk from 'chalk'
-import { generateKey, getKeyFingerprint, FINGERPRINT_LENGTH } from './key'
+import {
+  generateKey,
+  getKeyFingerprint,
+  FINGERPRINT_LENGTH,
+  parseKey,
+  serializeKey
+} from './key'
 import {
   exportKeychain,
   importKeychain,
@@ -67,7 +73,7 @@ program
     }
     const keychain = await getEnvKeychain()
     keychain[fingerprint] = {
-      key,
+      key: await parseKey(key),
       createdAt: Date.now()
     }
     await printExports('Updated keychain', keychain, env.masterKey)
@@ -170,21 +176,23 @@ program
   .option('-f, --full', 'Show the full keys in clear text')
   .action(async (_, { full = false } = {}) => {
     const keychain = await getEnvKeychain()
-    const table = Object.keys(keychain).map(fingerprint => {
-      const { key, createdAt } = keychain[fingerprint]
-      const creationDate = new Date(createdAt)
-      return full
-        ? {
-            fingerprint,
-            createdAt: creationDate.toISOString(),
-            key
-          }
-        : {
-            fingerprint,
-            created: ago(creationDate),
-            key: '[redacted]'
-          }
-    })
+    const table = await Promise.all(
+      Object.keys(keychain).map(async fingerprint => {
+        const { key, createdAt } = keychain[fingerprint]
+        const creationDate = new Date(createdAt)
+        return full
+          ? {
+              fingerprint,
+              createdAt: creationDate.toISOString(),
+              key: await serializeKey(key)
+            }
+          : {
+              fingerprint,
+              created: ago(creationDate),
+              key: '[redacted]'
+            }
+      })
+    )
     console.table(table)
   })
 

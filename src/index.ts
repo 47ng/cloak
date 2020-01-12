@@ -1,7 +1,8 @@
 export {
   generateKey,
-  exportKey,
+  exportCryptoKey,
   parseKey,
+  serializeKey,
   CloakKey,
   ParsedCloakKey
 } from './key'

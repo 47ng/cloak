@@ -37,6 +37,12 @@ export async function parseKey(key: CloakKey): Promise<ParsedCloakKey> {
   }
 }
 
+export async function serializeKey(key: ParsedCloakKey): Promise<CloakKey> {
+  return (key.raw as CryptoKey).algorithm
+    ? await exportCryptoKey(key.raw as CryptoKey)
+    : formatKey(key.raw as Uint8Array)
+}
+
 /**
  * Generate an AES-GCM 256 bit serialized key.
  */
@@ -60,7 +66,7 @@ export function generateKey(): CloakKey {
  *
  * @param key - An exportable WebCrypto key
  */
-export async function exportKey(key: CryptoKey): Promise<CloakKey> {
+export async function exportCryptoKey(key: CryptoKey): Promise<CloakKey> {
   const algo = key.algorithm as AesKeyAlgorithm
   if (algo.name !== 'AES-GCM' || algo.length !== 256) {
     throw new Error('Unsupported key type')

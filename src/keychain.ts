@@ -1,4 +1,4 @@
-import { CloakKey, getKeyFingerprint } from './key'
+import { CloakKey, ParsedCloakKey, parseKey, serializeKey } from './key'
 import {
   CloakedString,
   decryptString,
@@ -7,6 +7,11 @@ import {
 } from './message'
 
 interface KeychainEntry {
+  key: ParsedCloakKey
+  createdAt: number // timestamp
+}
+
+interface SerializedKeychainEntry {
   key: CloakKey
   createdAt: number // timestamp
 }
@@ -18,8 +23,9 @@ export type CloakKeychain = {
 export async function makeKeychain(keys: CloakKey[]): Promise<CloakKeychain> {
   const keychain: CloakKeychain = {}
   for (const key of keys) {
-    keychain[await getKeyFingerprint(key)] = {
-      key,
+    const parsedKey = await parseKey(key)
+    keychain[parsedKey.fingerprint] = {
+      key: parsedKey,
       createdAt: Date.now()
     }
   }
@@ -37,11 +43,12 @@ export async function importKeychain(
   masterKey: CloakKey
 ): Promise<CloakKeychain> {
   const json = await decryptString(encryptedKeychain, masterKey)
-  const keys: KeychainEntry[] = JSON.parse(json)
+  const keys: SerializedKeychainEntry[] = JSON.parse(json)
   const keychain: CloakKeychain = {}
   for (const { key, ...rest } of keys) {
-    keychain[await getKeyFingerprint(key)] = {
-      key,
+    const parsedKey = await parseKey(key)
+    keychain[parsedKey.fingerprint] = {
+      key: parsedKey,
       ...rest
     }
   }
@@ -59,14 +66,21 @@ export async function exportKeychain(
   keychain: CloakKeychain,
   masterKey: CloakKey
 ): Promise<CloakedString> {
-  const entries = Object.values(keychain)
+  const rawEntries: KeychainEntry[] = Object.values(keychain)
+  const entries: SerializedKeychainEntry[] = []
+  for (const entry of rawEntries) {
+    entries.push({
+      key: await serializeKey(entry.key),
+      createdAt: entry.createdAt
+    })
+  }
   return await encryptString(JSON.stringify(entries), masterKey)
 }
 
 export function findKeyForMessage(
   message: CloakedString,
   keychain: CloakKeychain
-): CloakKey {
+): ParsedCloakKey {
   const fingerprint = getMessageKeyFingerprint(message)
   if (!(fingerprint in keychain)) {
     throw new Error('Key is not available')

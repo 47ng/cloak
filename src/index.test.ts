@@ -64,8 +64,8 @@ describe('v1 format', () => {
     const keychain = await makeKeychain([keyA, keyB])
     const keyForA = findKeyForMessage(cipherA, keychain)
     const keyForB = findKeyForMessage(cipherB, keychain)
-    expect(keyForA).toEqual(keyA)
-    expect(keyForB).toEqual(keyB)
+    expect(keyForA).toEqual(await parseKey(keyA))
+    expect(keyForB).toEqual(await parseKey(keyB))
   })
 
   test('Parse key', async () => {
