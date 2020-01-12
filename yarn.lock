@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@47ng/codec@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@47ng/codec/-/codec-0.1.0.tgz#9b8b0310f7390a15835c745e6a66cc542913d8ca"
-  integrity sha512-qunhWiSH+uQQFpvi3MavKInIoaOoBt1PSm+vIRVLx/IV+tht+y+wqCZ7SOLtSq/eK8Ic+VqWexgXKcvyoNklSg==
+"@47ng/codec@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@47ng/codec/-/codec-0.2.0.tgz#c33f07340751254cd55da2585b3b12ba55f1e971"
+  integrity sha512-usjjPzU6LjkR/pndtOmqKxJkOb2iLNxPLTqzVawehvklL8syVCu1bbzLmQUYg0ed2JcIOTRMdLew2DiOXAZtYw==
   dependencies:
     "@stablelib/base64" "^0.7.2"
     "@stablelib/hex" "^0.5.0"
