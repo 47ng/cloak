@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import fs from 'fs'
 import program from 'commander'
 import ago from 's-ago'
+import chalk from 'chalk'
 import { generateKey, getKeyFingerprint, FINGERPRINT_LENGTH } from './key'
 import {
   exportKeychain,
@@ -34,12 +35,11 @@ const printExports = async (
   masterKey: string
 ) => {
   const text = [
-    `\n${message}:`,
+    '',
+    chalk.dim(`# ${message}:`),
     `export CLOAK_MASTER_KEY="${masterKey}"`,
     `export CLOAK_KEYCHAIN="${await exportKeychain(keychain, masterKey)}"`
-  ]
-    .filter(x => !!x)
-    .join('\n')
+  ].join('\n')
   console.log(text)
 }
 
@@ -49,8 +49,8 @@ program
   .action(async () => {
     const key = generateKey()
     const fingerprint = await getKeyFingerprint(key)
-    console.log('Key:         ', key)
-    console.log('Fingerprint: ', fingerprint)
+    console.log(chalk.bold('Key:         '), key)
+    console.log(chalk.bold('Fingerprint: '), fingerprint)
 
     // todo: print different things based on context:
     // - no master key or keychain:
@@ -72,7 +72,7 @@ program
     }
     await printExports('Updated keychain', keychain, env.masterKey)
     console.log(`
-To use this new key as default for encryption:
+${chalk.dim('# To use this new key as default for encryption:')}
 export CLOAK_CURRENT_KEY="${fingerprint}"`)
   })
 
@@ -92,12 +92,14 @@ program
       if (fingerprint in keychain) {
         key = keychain[fingerprint].key
       } else {
-        console.error('Missing key (not available in keychain)')
+        console.error(
+          chalk.redBright('Error: Missing key (not available in keychain)')
+        )
         process.exit(1)
       }
     }
     if (!key) {
-      console.error('Missing key')
+      console.error(chalk.redBright('Error: Missing key'))
       process.exit(1)
     }
     const stdin = fs.readFileSync(0, 'utf-8')
@@ -121,19 +123,23 @@ program
     const keychain = await getEnvKeychain()
     if (!keychain) {
       // todo: Provide option to pass a cleartext key for decryption
-      console.error('No keychain found and no key provided')
+      console.error(
+        chalk.redBright('Error: No keychain found and no key provided')
+      )
       process.exit(1)
     }
-    // First: try from the keychain
-    // Then: try with the given key
     const stdin = fs
       .readFileSync(0, 'utf-8')
       .split('\n')
       .filter(line => line.length > 0)
     for (const message of stdin) {
-      const key = findKeyForMessage(message, keychain)
-      const cleartext = await decryptString(message, key)
-      console.log(cleartext)
+      try {
+        const key = findKeyForMessage(message, keychain)
+        const cleartext = await decryptString(message, key)
+        console.log(cleartext)
+      } catch (error) {
+        console.error(chalk.redBright('Error:', error.message))
+      }
     }
   })
 
@@ -145,11 +151,11 @@ program
   .action(async keyFingerprint => {
     const keychain = await getEnvKeychain()
     if (!(keyFingerprint in keychain)) {
-      console.error('No such key in env keychain')
+      console.error(chalk.redBright('Error: No such key in env keychain'))
       process.exit(1)
     }
     if (!env.masterKey) {
-      console.error('Master key is missing')
+      console.error(chalk.redBright('Error: Master key is missing'))
       process.exit(1)
     }
     const { [keyFingerprint]: _, ...newKeychain } = keychain

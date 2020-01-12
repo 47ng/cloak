@@ -25,7 +25,7 @@ export async function decryptString(
   key: CloakKey
 ): Promise<string> {
   if (!input.startsWith('v1.')) {
-    throw new Error('Unknown format')
+    throw new Error('Unknown message format')
   }
   const [_, algo, fingerprint, iv, ciphertext] = input.split('.')
   if (algo !== 'aesgcm256') {
@@ -40,7 +40,7 @@ export async function decryptString(
 
 export function getMessageKeyFingerprint(message: CloakedString) {
   if (!message.startsWith('v1.')) {
-    throw new Error('Unknown format')
+    throw new Error('Unknown message format')
   }
   const [_, algo, fingerprint] = message.split('.')
   if (algo !== 'aesgcm256') {

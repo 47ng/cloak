@@ -38,6 +38,7 @@
     "@stablelib/base64": "^0.7.2",
     "@stablelib/hex": "^0.5.0",
     "@stablelib/utf8": "^0.10.1",
+    "chalk": "^3.0.0",
     "commander": "^4.0.1",
     "dotenv": "^8.2.0",
     "s-ago": "^2.1.0"
