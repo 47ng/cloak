@@ -4,8 +4,20 @@ import { encode as encodeHex, decode as decodeHex } from '@stablelib/hex'
 
 export const b64 = {
   urlSafe: (str: string) => str.replace(/\+/g, '-').replace(/\//g, '_'),
-  encode: encodeURLSafe,
-  decode: (base64: string) => decodeURLSafe(b64.urlSafe(base64))
+  encode: function encodeB64(data: Uint8Array) {
+    if (typeof Buffer !== 'undefined') {
+      return b64.urlSafe(Buffer.from(data, 0, data.length).toString('base64'))
+    } else {
+      return encodeURLSafe(data)
+    }
+  },
+  decode: function decodeB64(base64: string) {
+    if (typeof Buffer !== 'undefined') {
+      return Buffer.from(base64, 'base64')
+    } else {
+      return decodeURLSafe(b64.urlSafe(base64))
+    }
+  }
 }
 
 export const utf8 = {
