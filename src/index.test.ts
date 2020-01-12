@@ -1,9 +1,18 @@
+import 'jest-extended'
 import {
+  generateKey,
   encryptString,
   decryptString,
   makeKeychain,
-  findKeyForMessage
+  findKeyForMessage,
+  parseKey
 } from './index'
+
+test('Key generation', () => {
+  const key = generateKey()
+  expect(key).toStartWith('k1.aesgcm256.')
+  expect(key.length).toEqual(57)
+})
 
 describe('v1 format', () => {
   test('Encrypt / decrypt', async () => {
@@ -57,5 +66,14 @@ describe('v1 format', () => {
     const keyForB = findKeyForMessage(cipherB, keychain)
     expect(keyForA).toEqual(keyA)
     expect(keyForB).toEqual(keyB)
+  })
+
+  test('Parse key', async () => {
+    const key = 'k1.aesgcm256.2itF7YmMYIP4b9NNtKMhIx2axGi6aI50RcwGBiFq-VA='
+    const parsedKey = await parseKey(key)
+    const expected = 'Hello, World !'
+    const cipher = await encryptString(expected, parsedKey)
+    const received = await decryptString(cipher, parsedKey)
+    expect(received).toEqual(expected)
   })
 })
