@@ -10,7 +10,8 @@ import {
   getKeyFingerprint,
   FINGERPRINT_LENGTH,
   parseKey,
-  serializeKey
+  serializeKey,
+  CloakKey
 } from './key'
 import {
   exportKeychain,
@@ -194,6 +195,15 @@ program
       })
     )
     console.table(table)
+  })
+
+program
+  .command('rotate-master-key <key>')
+  .description('Generate a new master key & re-encrypt the keychain with it')
+  .action(async (key: CloakKey) => {
+    const keychain = await getEnvKeychain()
+    const newMasterKey = key || generateKey()
+    await printExports('Updated keychain', keychain, newMasterKey)
   })
 
 program.parse(process.argv)
