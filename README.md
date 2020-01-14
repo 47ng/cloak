@@ -40,13 +40,13 @@ Key:          k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE=
 Fingerprint:  6f28c026
 
 Generated new empty keychain:
-export CLOAK_MASTER_KEY="k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE="
-export CLOAK_KEYCHAIN="v1.aesgcm256.6f28c026.yhCUkzv5gOyHJ2M_.jrGSf2_MPVofk-kSDgnYzvEy"
+export CLOAK_MASTER_KEY=k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE=
+export CLOAK_KEYCHAIN=v1.aesgcm256.6f28c026.yhCUkzv5gOyHJ2M_.jrGSf2_MPVofk-kSDgnYzvEy
 
 # Copy/paste the exports into your terminal
 # (the CLI does not mutate your environment directly)
-$ export CLOAK_MASTER_KEY="k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE="
-$ export CLOAK_KEYCHAIN="v1.aesgcm256.6f28c026.yhCUkzv5gOyHJ2M_.jrGSf2_MPVofk-kSDgnYzvEy"
+$ export CLOAK_MASTER_KEY=k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE=
+$ export CLOAK_KEYCHAIN=v1.aesgcm256.6f28c026.yhCUkzv5gOyHJ2M_.jrGSf2_MPVofk-kSDgnYzvEy
 
 # Generate a key to use for encryption
 $ cloak generate
@@ -54,11 +54,11 @@ Key:          k1.aesgcm256.pHLFYdaqXut62LoFbt8KV80x_YNyZPmY0kQaPhJ0Ehc=
 Fingerprint:  cd38bcc4
 
 Updated keychain:
-export CLOAK_MASTER_KEY="k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE="
-export CLOAK_KEYCHAIN="v1.aesgcm256.6f28c026.jr9fqMA_RfNhIjHz.lo4IfIYfZ0zxrdSns_ibWq6YX1D5AnzN-fhUF0CKVx5dRVIo0x-Atumr9WZqpHOeEIWT5bEGFKHhxGkFdwk2vg5TZQNk5Rj_jo3hnfSLaFAYncG59dB  jUkz1JE0Plq2d-GR1AbDs6P18VzOG_JrU"
+export CLOAK_MASTER_KEY=k1.aesgcm256.DL2G9PQeZ9r65J59pph6dy9Sk4fBLEZ3CTQZsandgYE=
+export CLOAK_KEYCHAIN=v1.aesgcm256.6f28c026.jr9fqMA_RfNhIjHz.lo4IfIYfZ0zxrdSns_ibWq6YX1D5AnzN-fhUF0CKVx5dRVIo0x-Atumr9WZqpHOeEIWT5bEGFKHhxGkFdwk2vg5TZQNk5Rj_jo3hnfSLaFAYncG59dB  jUkz1JE0Plq2d-GR1AbDs6P18VzOG_JrU
 
 To use this new key as default for encryption:
-export CLOAK_CURRENT_KEY="cd38bcc4"
+export CLOAK_CURRENT_KEY=cd38bcc4
 
 # Encrypt sdtin
 $ echo 'Hello, World !' | cloak encrypt

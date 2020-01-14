@@ -44,8 +44,8 @@ const printExports = async (
   const text = [
     '',
     chalk.dim(`# ${message}:`),
-    `export CLOAK_MASTER_KEY="${masterKey}"`,
-    `export CLOAK_KEYCHAIN="${await exportKeychain(keychain, masterKey)}"`
+    `export CLOAK_MASTER_KEY=${masterKey}`,
+    `export CLOAK_KEYCHAIN=${await exportKeychain(keychain, masterKey)}`
   ].join('\n')
   console.log(text)
 }
@@ -80,7 +80,7 @@ program
     await printExports('Updated keychain', keychain, env.masterKey)
     console.log(`
 ${chalk.dim('# To use this new key as default for encryption:')}
-export CLOAK_CURRENT_KEY="${fingerprint}"`)
+export CLOAK_CURRENT_KEY=${fingerprint}`)
   })
 
 // --
