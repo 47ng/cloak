@@ -1,6 +1,6 @@
 {
   "name": "@47ng/cloak",
-  "version": "0.14.1",
+  "version": "0.15.0",
   "description": "Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js",
   "main": "dist/index.js",
   "bin": {
