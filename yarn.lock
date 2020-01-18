@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@47ng/codec@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@47ng/codec/-/codec-0.3.0.tgz#e8af94d3c469a5d4ece10ab17fa1fa7146d7094f"
-  integrity sha512-ZSIJIr7fJJp5LDIC/HK1scvO5F10qqvZbUX4e3TyHkR1vuIsVZ3PyI0v0gVDMQfEvNcyYAzjxNuEqLiJjGiZ3A==
+"@47ng/codec@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@47ng/codec/-/codec-0.3.1.tgz#7afed5ec4ce741f220f4e2160428825212251031"
+  integrity sha512-BOd4HkzrUeZsAt1y9cirNwenBqGvblpB/LcQ87Bl+Ssm2ZCo7xVQ0w2ECq+iYCJaMv18XuogsMNW/uzsr5uE7w==
   dependencies:
-    "@stablelib/base64" "^0.7.2"
-    "@stablelib/hex" "^0.5.0"
+    "@stablelib/base64" "^1.0.0"
+    "@stablelib/hex" "^1.0.0"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5":
   version "7.5.5"
@@ -961,20 +961,10 @@
     "@parcel/utils" "^1.11.0"
     physical-cpu-count "^2.0.0"
 
-"@stablelib/base64@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@stablelib/base64/-/base64-0.7.2.tgz#fbbb8d60c26f514cdcb5b791cf911bfb1db4b4b4"
-  integrity sha1-+7uNYMJvUUzctbeRz5Eb+x20tLQ=
-
 "@stablelib/base64@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@stablelib/base64/-/base64-1.0.0.tgz#e08ba78078c731cbbb244530b1750659c52ba7cb"
   integrity sha512-s/wTc/3+vYSalh4gfayJrupzhT7SDBqNtiYOeEMlkSDqL/8cExh5FAeTzLpmYq+7BLLv36EjBL5xrb0bUHWJWQ==
-
-"@stablelib/hex@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@stablelib/hex/-/hex-0.5.0.tgz#f77a0ba6e7d61c48f06c806b57248c9916041da0"
-  integrity sha1-93oLpufWHEjwbIBrVySMmRYEHaA=
 
 "@stablelib/hex@^1.0.0":
   version "1.0.0"

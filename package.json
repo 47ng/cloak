@@ -35,7 +35,7 @@
     "ci": "run-s test build"
   },
   "dependencies": {
-    "@47ng/codec": "^0.3.0",
+    "@47ng/codec": "^0.3.1",
     "@stablelib/base64": "^1.0.0",
     "@stablelib/hex": "^1.0.0",
     "@stablelib/utf8": "^1.0.0",
