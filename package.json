@@ -36,26 +36,26 @@
   },
   "dependencies": {
     "@47ng/codec": "^0.3.0",
-    "@stablelib/base64": "^0.7.2",
-    "@stablelib/hex": "^0.5.0",
-    "@stablelib/utf8": "^0.10.1",
+    "@stablelib/base64": "^1.0.0",
+    "@stablelib/hex": "^1.0.0",
+    "@stablelib/utf8": "^1.0.0",
     "chalk": "^3.0.0",
-    "commander": "^4.0.1",
+    "commander": "^4.1.0",
     "dotenv": "^8.2.0",
     "s-ago": "^2.1.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.23",
-    "@types/node": "^12.12.17",
-    "husky": "^3.1.0",
+    "@types/jest": "^24.9.0",
+    "@types/node": "^13.1.8",
+    "husky": "^4.0.10",
     "jest": "^24.9.0",
     "jest-extended": "^0.11.2",
     "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.12.4",
-    "ts-jest": "^24.2.0",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.3"
+    "ts-jest": "^24.3.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   },
   "jest": {
     "preset": "ts-jest/presets/js-with-ts",
