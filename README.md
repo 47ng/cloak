@@ -1,7 +1,9 @@
 # `cloak`
 
+[![NPM](https://img.shields.io/npm/v/@47ng/cloak?color=red)](https://www.npmjs.com/package/cloak)
 [![MIT License](https://img.shields.io/github/license/47ng/cloak.svg?color=blue)](https://github.com/47ng/cloak/blob/master/LICENSE)
 [![Travis CI Build](https://img.shields.io/travis/com/47ng/cloak.svg)](https://travis-ci.com/47ng/cloak)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=47ng/cloak)](https://dependabot.com)
 [![Average issue resolution time](https://isitmaintained.com/badge/resolution/47ng/cloak.svg)](https://isitmaintained.com/project/47ng/cloak)
 [![Number of open issues](https://isitmaintained.com/badge/open/47ng/cloak.svg)](https://isitmaintained.com/project/47ng/cloak)
 
