@@ -39,7 +39,7 @@
     "@stablelib/base64": "^1.0.0",
     "@stablelib/hex": "^1.0.0",
     "@stablelib/utf8": "^1.0.0",
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "commander": "^5.0.0",
     "dotenv": "^8.2.0",
     "s-ago": "^2.1.0"
