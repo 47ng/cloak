@@ -1,11 +1,10 @@
 # `cloak`
 
 [![NPM](https://img.shields.io/npm/v/@47ng/cloak?color=red)](https://www.npmjs.com/package/@47ng/cloak)
-[![MIT License](https://img.shields.io/github/license/47ng/cloak.svg?color=blue)](https://github.com/47ng/cloak/blob/master/LICENSE)
-[![Travis CI Build](https://img.shields.io/travis/com/47ng/cloak.svg)](https://travis-ci.com/47ng/cloak)
+[![MIT License](https://img.shields.io/github/license/47ng/cloak.svg?color=blue)](https://github.com/47ng/cloak/blob/next/LICENSE)
+[![Continuous Integration](https://github.com/47ng/cloak/workflows/Continuous%20Integration/badge.svg?branch=next)](https://github.com/47ng/cloak/actions)
+[![Coverage Status](https://coveralls.io/repos/github/47ng/cloak/badge.svg?branch=next)](https://coveralls.io/github/47ng/cloak?branch=next)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=47ng/cloak)](https://dependabot.com)
-[![Average issue resolution time](https://isitmaintained.com/badge/resolution/47ng/cloak.svg)](https://isitmaintained.com/project/47ng/cloak)
-[![Number of open issues](https://isitmaintained.com/badge/open/47ng/cloak.svg)](https://isitmaintained.com/project/47ng/cloak)
 
 Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js.
 

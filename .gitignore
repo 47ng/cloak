@@ -3,6 +3,4 @@ dist/
 .env
 yarn-error.log
 .cache
-
-# Docker containers with persistance
-.volumes/
+coverage/
