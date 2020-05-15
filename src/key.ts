@@ -108,7 +108,7 @@ export async function importKey(
         name: 'AES-GCM',
         length: 256
       },
-      false, // Cannot re-export
+      true,
       usage ? [usage] : ['encrypt', 'decrypt']
     )
   }
