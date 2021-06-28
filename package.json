@@ -40,7 +40,7 @@
     "@stablelib/hex": "^1.0.0",
     "@stablelib/utf8": "^1.0.0",
     "chalk": "^4.1.0",
-    "commander": "^7.0.0",
+    "commander": "^8.0.0",
     "dotenv": "^8.2.0",
     "s-ago": "^2.2.0"
   },
