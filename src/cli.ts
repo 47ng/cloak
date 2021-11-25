@@ -147,7 +147,7 @@ program
         const cleartext = await decryptString(message, key)
         console.log(cleartext)
       } catch (error) {
-        console.error(chalk.redBright('Error:', error.message))
+        console.error(chalk.redBright('Error:', error))
       }
     }
   })
