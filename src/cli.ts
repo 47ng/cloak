@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
+import chalk from 'chalk'
+import { Command } from 'commander'
 import dotenv from 'dotenv'
 import fs from 'fs'
-import program from 'commander'
 import ago from 's-ago'
-import chalk from 'chalk'
 import {
   generateKey,
   getKeyFingerprint,
@@ -23,6 +23,8 @@ import {
 import { encryptString, decryptString } from './message'
 
 dotenv.config()
+
+const program = new Command()
 
 const env = {
   keychain: process.env.CLOAK_KEYCHAIN,
@@ -145,7 +147,7 @@ program
         const cleartext = await decryptString(message, key)
         console.log(cleartext)
       } catch (error) {
-        console.error(chalk.redBright('Error:', error.message))
+        console.error(chalk.redBright('Error:', error))
       }
     }
   })
