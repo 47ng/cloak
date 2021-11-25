@@ -1,4 +1,4 @@
-import { utf8, b64, hex } from '@47ng/codec'
+import { b64, hex, utf8 } from '@47ng/codec'
 import * as NodeCrypto from 'crypto'
 
 let nodeCrypto: typeof NodeCrypto
@@ -8,6 +8,8 @@ if (typeof window === 'undefined') {
 }
 
 export const FINGERPRINT_LENGTH = 8
+
+export const cloakKeyRegex = /^k1\.aesgcm256\.(?<key>[a-zA-Z0-9-_]{43}=?)$/
 
 /**
  * Serialized representation of a Cloak key.
@@ -30,10 +32,23 @@ export function formatKey(raw: Uint8Array) {
   return ['k1', 'aesgcm256', b64.encode(raw)].join('.')
 }
 
-export async function parseKey(key: CloakKey): Promise<ParsedCloakKey> {
+export async function parseKey(
+  key: CloakKey,
+  usage?: 'encrypt' | 'decrypt'
+): Promise<ParsedCloakKey> {
   return {
-    raw: await importKey(key),
+    raw: await importKey(key, usage),
     fingerprint: await getKeyFingerprint(key)
+  }
+}
+
+/**
+ * Sync version of parseKey, only available for Node.js
+ */
+export function parseKeySync(key: CloakKey): ParsedCloakKey {
+  return {
+    raw: importKeySync(key),
+    fingerprint: getKeyFingerprintSync(key)
   }
 }
 
@@ -88,14 +103,11 @@ export async function importKey(
   key: CloakKey,
   usage?: 'encrypt' | 'decrypt'
 ): Promise<CryptoKey | Uint8Array> {
-  if (!key.startsWith('k1.')) {
+  const match = key.match(cloakKeyRegex)
+  if (!match) {
     throw new Error('Unknown key format')
   }
-  const [_, algorithm, secret] = key.split('.')
-  if (algorithm !== 'aesgcm256') {
-    throw new Error('Unsupported key type')
-  }
-  const raw = b64.decode(secret)
+  const raw = b64.decode(match.groups!.key)
   if (typeof window === 'undefined') {
     // Node.js
     return raw
@@ -115,6 +127,21 @@ export async function importKey(
 }
 
 /**
+ * Internal method: de-serialize a Cloak key into an Uint8Array.
+ *
+ * Available only on Node.js
+ *
+ * @param key - Serialized Cloak key
+ */
+export function importKeySync(key: CloakKey): Uint8Array {
+  const match = key.match(cloakKeyRegex)
+  if (!match) {
+    throw new Error('Unknown key format')
+  }
+  return b64.decode(match.groups!.key)
+}
+
+/**
  * Internal method: calculate a key fingerprint
  * Fingerprint is the first 8 bytes of the SHA-256 of the
  * serialized key text, represented as an hexadecimal string.
@@ -131,4 +158,16 @@ export async function getKeyFingerprint(key: CloakKey): Promise<string> {
     const hash = await window.crypto.subtle.digest('SHA-256', data)
     return hex.encode(new Uint8Array(hash)).slice(0, FINGERPRINT_LENGTH)
   }
+}
+
+/**
+ * Internal method: calculate a key fingerprint
+ * Fingerprint is the first 8 bytes of the SHA-256 of the
+ * serialized key text, represented as an hexadecimal string.
+ */
+export function getKeyFingerprintSync(key: CloakKey): string {
+  const data = utf8.encode(key)
+  const hash = nodeCrypto.createHash('sha256')
+  hash.update(data)
+  return hash.digest('hex').slice(0, FINGERPRINT_LENGTH)
 }
