@@ -5,3 +5,4 @@ nodemon.json
 .volumes/
 yarn-error.log
 coverage/
+.husky/
