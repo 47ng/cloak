@@ -6,3 +6,7 @@ nodemon.json
 yarn-error.log
 coverage/
 .husky/
+.cache/
+.github/
+src/
+test/
