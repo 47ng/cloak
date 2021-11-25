@@ -1,12 +1,17 @@
-# `cloak`
+<h1 align="center"><code>@47ng/cloak</code></h1>
+
+<div align="center">
 
 [![NPM](https://img.shields.io/npm/v/@47ng/cloak?color=red)](https://www.npmjs.com/package/@47ng/cloak)
 [![MIT License](https://img.shields.io/github/license/47ng/cloak.svg?color=blue)](https://github.com/47ng/cloak/blob/next/LICENSE)
 [![Continuous Integration](https://github.com/47ng/cloak/workflows/Continuous%20Integration/badge.svg?branch=next)](https://github.com/47ng/cloak/actions)
 [![Coverage Status](https://coveralls.io/repos/github/47ng/cloak/badge.svg?branch=next)](https://coveralls.io/github/47ng/cloak?branch=next)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=47ng/cloak)](https://dependabot.com)
 
-Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js.
+</div>
+
+<p align="center">
+  Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js.
+</p>
 
 ## Installation
 
@@ -86,6 +91,6 @@ const demo = async () => {
 
 ## License
 
-[MIT](https://github.com/47ng/cloak/blob/master/LICENSE) - Made with ❤️ by [François Best](https://francoisbest.com)
+[MIT](./LICENSE) - Made with ❤️ by [François Best](https://francoisbest.com)
 
 Using this package at work ? [Sponsor me](https://github.com/sponsors/franky47) to help with support and maintenance.
