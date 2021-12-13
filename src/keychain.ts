@@ -18,11 +18,13 @@ import {
 interface KeychainEntry {
   key: ParsedCloakKey
   createdAt: number // timestamp
+  label?: string
 }
 
 interface SerializedKeychainEntry {
   key: CloakKey
   createdAt: number // timestamp
+  label?: string
 }
 
 export type CloakKeychain = {
@@ -135,7 +137,8 @@ export async function exportKeychain(
   for (const entry of rawEntries) {
     entries.push({
       key: await serializeKey(entry.key),
-      createdAt: entry.createdAt
+      createdAt: entry.createdAt,
+      label: entry.label
     })
   }
   return await encryptString(JSON.stringify(entries), masterKey)
@@ -159,7 +162,8 @@ export function exportKeychainSync(
   for (const entry of rawEntries) {
     entries.push({
       key: formatKey(entry.key.raw as Uint8Array),
-      createdAt: entry.createdAt
+      createdAt: entry.createdAt,
+      label: entry.label
     })
   }
   return encryptStringSync(JSON.stringify(entries), masterKey)
