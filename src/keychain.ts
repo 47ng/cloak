@@ -15,7 +15,7 @@ import {
   getMessageKeyFingerprint
 } from './message'
 
-interface KeychainEntry {
+export interface KeychainEntry {
   key: ParsedCloakKey
   createdAt: number // timestamp
   label?: string
