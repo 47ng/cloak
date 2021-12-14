@@ -6,21 +6,21 @@ import dotenv from 'dotenv'
 import fs from 'fs'
 import ago from 's-ago'
 import {
+  CloakKey,
+  FINGERPRINT_LENGTH,
   generateKey,
   getKeyFingerprint,
-  FINGERPRINT_LENGTH,
   parseKey,
-  serializeKey,
-  CloakKey
+  serializeKey
 } from './key'
 import {
+  CloakKeychain,
   exportKeychain,
-  importKeychain,
   findKeyForMessage,
-  makeKeychain,
-  CloakKeychain
+  importKeychain,
+  makeKeychain
 } from './keychain'
-import { encryptString, decryptString } from './message'
+import { decryptString, encryptString } from './message'
 
 dotenv.config()
 
@@ -181,18 +181,20 @@ program
     const keychain = await getEnvKeychain()
     const table = await Promise.all(
       Object.keys(keychain).map(async fingerprint => {
-        const { key, createdAt } = keychain[fingerprint]
+        const { key, createdAt, label } = keychain[fingerprint]
         const creationDate = new Date(createdAt)
         return full
           ? {
               fingerprint,
               createdAt: creationDate.toISOString(),
-              key: await serializeKey(key)
+              key: await serializeKey(key),
+              label
             }
           : {
               fingerprint,
               created: ago(creationDate),
-              key: '[redacted]'
+              key: '[redacted]',
+              label
             }
       })
     )
