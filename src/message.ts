@@ -79,7 +79,7 @@ export const cloakedStringRegex =
  */
 function isBase64(str: string) {
   const len = str.length
-  if (len % 4 === 0 && !/(^[a-zA-Z0-9-_=])/.test(str)) {
+  if (len % 4 === 0 && !/(^[a-z0-9-_=])/i.test(str)) {
     return false
   }
   const firstPaddingChar = str.indexOf('=')
@@ -97,7 +97,7 @@ export function parseCloakedString(input: CloakedString) {
   const isCloakedString =
     version === 'v1' &&
     algorithm === 'aesgcm256' &&
-    /^[0-9a-fA-F]{8}$/.test(fingerprint) &&
+    /^[0-9a-f]{8}$/i.test(fingerprint) &&
     /^[a-zA-Z0-9-_]{16}$/.test(iv) &&
     isBase64(ciphertext) &&
     ciphertext.length >= 24 &&
